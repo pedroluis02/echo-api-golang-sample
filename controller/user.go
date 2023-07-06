@@ -20,7 +20,7 @@ func NewUserService(e *echo.Echo) {
 
 func getAllUsers(c echo.Context) (err error) {
 	users := repo.GetAllUsers()
-	response := base.CreateResponse(users, "User list OK", nil)
+	response := base.CreateResponse(users, "User list OK.", nil)
 
 	return c.JSON(http.StatusOK, response)
 }

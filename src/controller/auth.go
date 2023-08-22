@@ -18,6 +18,15 @@ func NewAuthService(e *echo.Echo) {
 	repo.Init()
 }
 
+// CreateToken godoc
+//	@Summary		Create token
+//	@Description	Create new user token
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Success		200		{object}		model.Authorization
+//	@Param			userAuth body model.AuthCredential true "user info"
+//	@Router			/auth/token	[post]
 func createToken(c echo.Context) (err error) {
 	credential := new(model.AuthCredential)
 	if err = c.Bind(credential); err != nil {
@@ -32,6 +41,15 @@ func createToken(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, response)
 }
 
+// Login godoc
+//	@Summary		Login
+//	@Description	User login
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Success		200		{object}		model.User
+//	@Param			userAuth body model.AuthCredential true "user login"
+//	@Router			/auth/login	[post]
 func login(c echo.Context) (err error) {
 	credential := new(model.AuthCredential)
 	if err = c.Bind(credential); err != nil {

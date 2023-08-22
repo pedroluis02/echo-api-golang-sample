@@ -18,6 +18,14 @@ func NewUserService(e *echo.Echo) {
 	group.GET("/:id", getUser)
 }
 
+// ShowUsers godoc
+//	@Summary		Get users
+//	@Description	Get all users
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Success		200		{array}		model.User
+//	@Router			/users	[get]
 func getAllUsers(c echo.Context) (err error) {
 	users := repo.GetAllUsers()
 	response := base.CreateResponse(users, "User list OK.", nil)
@@ -25,6 +33,15 @@ func getAllUsers(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, response)
 }
 
+// CreateUser godoc
+//	@Summary		Create user
+//	@Description	Create new user
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			user body model.User true "user info"
+//	@Success		200	{object}	model.User
+//	@Router			/users/create	[post]
 func createUser(c echo.Context) (err error) {
 	user := new(model.User)
 	if err = c.Bind(user); err != nil {
@@ -44,6 +61,15 @@ func createUser(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, response)
 }
 
+// ShowUser godoc
+//	@Summary		Get user
+//	@Description	Get one user
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			id path integer true "user seach by id"
+//	@Success		200	{object}	model.User
+//	@Router			/users/{id}	[get]
 func getUser(c echo.Context) (err error) {
 	id, _ := strconv.Atoi(c.Param("id"))
 

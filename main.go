@@ -7,23 +7,47 @@ import (
 	"os"
 	"os/signal"
 	"time"
+	//"strings" 
+
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	controller "github.com/pedroluis02/echo-api-sample1/src/controller"
+	"github.com/swaggo/echo-swagger"
+	_ "github.com/pedroluis02/echo-api-sample1/docs"
 )
+//	@contact.name	Echo API Example
+//	@contact.url	http://www.swagger.io/support
+//	@contact.email	support@swagger.io
 
+//	@host	localhost:8080
+// @BasePath  /
+
+//	@license.name	Apache 2.0
+//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
 func main() {
 	fmt.Println("API with ECHO Framework")
 
 	e := echo.New()
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
+
 	e.Use(middleware.Logger())
+
+	/*e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
+		Skipper: func(c echo.Context) bool {
+			if strings.Contains(c.Request().URL.Path, "swagger") {
+				return true
+			}
+			return false
+		},
+	}))*/
 
 	controller.NewAuthService(e)
 	controller.NewUserService(e)
 
 	go func() {
-		if err := e.Start(":6000"); err != nil && err != http.ErrServerClosed {
+		if err := e.Start(":8080"); err != nil && err != http.ErrServerClosed {
 			fmt.Println(err)
 			fmt.Println("Shutting down the server")
 		}

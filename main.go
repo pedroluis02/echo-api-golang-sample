@@ -10,7 +10,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	controller "github.com/pedroluis02/echo-api-sample1/controller"
+	controller "github.com/pedroluis02/echo-api-sample1/src/controller"
 )
 
 func main() {
